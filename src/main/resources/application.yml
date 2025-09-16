@@ -36,7 +36,6 @@ log:
   path: manage-logs
 
 ---
-
 spring:
   profiles: local
   datasource:
