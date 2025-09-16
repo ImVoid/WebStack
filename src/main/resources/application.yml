@@ -40,9 +40,9 @@ log:
 spring:
   profiles: local
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://${DB_HOST:localhost}/webstack?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:123456}
+    password: ${DB_PASSWORD:root}
     filters: wall,mergeStat
 
 
