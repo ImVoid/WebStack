@@ -57,7 +57,7 @@ SiteDlg.clearData = function() {
  * @param val 数据的具体值
  */
 SiteDlg.set = function(key, val) {
-    this.siteData[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
+    this.siteData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
     return this;
 }
 
@@ -118,7 +118,7 @@ SiteDlg.hideCategorySelectTree = function() {
  * 收集数据
  */
 SiteDlg.collectData = function() {
-    this.set('id').set('thumb').set('title').set('description').set('categoryId').set('url');
+    this.set('id').set('thumb').set('title').set('description').set('categoryId').set('url').set('regex');
 }
 
 /**

@@ -5,7 +5,8 @@ var Site = {
     id: "siteTable",	//表格id
     seItem: null,		//选中的条目
     table: null,
-    layerIndex: -1
+    layerIndex: -1,
+    categoryId: 0
 };
 
 /**
@@ -19,8 +20,8 @@ Site.initColumn = function () {
         {title: '标题', field: 'title', align: 'center', valign: 'middle', sortable: true},
         {title: '图标', field: 'thumb', align: 'center', valign: 'middle', sortable: true,
         formatter: function (value) {
-                if (null == value || "" == value) {
-                    return "";
+                if (typeof value == "undefined" || value == null || value == "") {  
+              return "";
                 } else {
                     var str = '<img src=' + Feng.ctxPath + '/kaptcha/' + value + ' style=width:40px;height: 40px>';
                     return str;
@@ -50,16 +51,21 @@ Site.check = function () {
  * 点击添加网站
  */
 Site.openAddSite = function () {
-    var index = layer.open({
-        type: 2,
-        title: '添加网站',
-        area: ['800px', '420px'], //宽高
-        fix: false, //不固定
-        maxmin: true,
-        content: Feng.ctxPath + '/site/site_add'
-    });
-    this.layerIndex = index;
-    layer.full(index);
+    if(Site.categoryId) {
+        var index = layer.open({
+            type: 2,
+            title: '添加网站',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/site/site_add/' + Site.categoryId
+        });
+        this.layerIndex = index;
+        layer.full(index);
+    } else {
+        Feng.alert("请先选中分类！");
+    }
+
 };
 
 /**
@@ -107,10 +113,16 @@ Site.delete = function () {
 Site.search = function () {
     var queryData = {};
 
+    queryData['categoryId'] = Site.categoryId;
     queryData['title'] = $("#title").val();
 
     Site.table.refresh({query: queryData});
 }
+
+Site.onClickDept = function (e, treeId, treeNode) {
+    Site.categoryId = treeNode.id;
+    Site.search();
+};
 
 $(function () {
     var defaultColunms = Site.initColumn();
@@ -118,4 +130,7 @@ $(function () {
     table.setPaginationType("server");
     table.init();
     Site.table = table;
+    var ztree = new $ZTree("categoryTree", "/site/tree");
+    ztree.bindOnClick(Site.onClickDept);
+    ztree.init();
 });

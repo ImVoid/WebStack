@@ -1,106 +1,166 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-
 @include("/common/_header.html"){}
-
-
 <body class="page-body">
-    <!-- skin-white -->
-    <div class="page-container">
-
-        @include("/common/_sidebar.html"){}
-
-        <div class="main-content">
-            <nav class="navbar user-info-navbar" role="navigation">
-                <!-- User Info, Notifications and Menu Bar -->
-                <!-- Left links for user info navbar -->
-                <ul class="user-info-menu left-links list-inline list-unstyled">
-                    <li class="hidden-sm hidden-xs">
-                        <a href="#" data-toggle="sidebar">
-                            <i class="fa-bars"></i>
-                        </a>
-                    </li>
-                </ul>
-
-            <a href="https://github.com/jsnjfz/WebStack-Guns" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-            </nav>
-
-            @include("/common/_content.html"){}
-
-            <!-- Main Footer -->
-            <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
-            <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
-            <!-- Or class "fixed" to  always fix the footer to the end of page -->
-            <footer class="main-footer sticky footer-type-1">
-                <div class="footer-inner">
-                    <!-- Add your copyright text here -->
-                    <div class="footer-text">
-                        &copy; 2019
-                        <a href="/"><strong>WebStack</strong></a> design by <a href="https://github.com/jsnjfz" target="_blank"><strong>jsnjfz</strong></a>
-                    </div>
-                    <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
-                    <div class="go-up">
-                        <a href="#" rel="go-top">
-                            <i class="fa-angle-up"></i>
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
+<script src="${ctxPath}/static/js/Convert_Pinyin.js"></script>
+<script>
+    $(document).ready(function () {
 
 
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('click', '.has-sub', function(){
-            var _this = $(this)
-            if(!$(this).hasClass('expanded')) {
-               setTimeout(function(){
-                    _this.find('ul').attr("style","")
-               }, 300);
-
-            } else {
-                $('.has-sub ul').each(function(id,ele){
-                    var _that = $(this)
-                    if(_this.find('ul')[0] != ele) {
-                        setTimeout(function(){
-                            _that.attr("style","")
-                        }, 300);
-                    }
-                })
-            }
-        })
-        $('.user-info-menu .hidden-sm').click(function(){
-            if($('.sidebar-menu').hasClass('collapsed')) {
-                $('.has-sub.expanded > ul').attr("style","")
-            } else {
-                $('.has-sub.expanded > ul').show()
-            }
-        })
-        $("#main-menu li ul li").click(function() {
-            $(this).siblings('li').removeClass('active'); // 删除其他兄弟元素的样式
-            $(this).addClass('active'); // 添加当前元素的样式
-        });
-        $("a.smooth").click(function(ev) {
-            ev.preventDefault();
-
-            public_vars.$mainMenu.add(public_vars.$sidebarProfile).toggleClass('mobile-is-visible');
-            ps_destroy();
-            $("html, body").animate({
-                scrollTop: $($(this).attr("href")).offset().top - 30
-            }, {
-                duration: 500,
-                easing: "swing"
-            });
-        });
-        return false;
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "showDuration": "15000",
+            "hideDuration": "1000",
+            "timeOut": "15000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     });
+</script>
+<!-- skin-white -->
+<div class="page-container">
+
+    @include("/common/_sidebar.html"){}
+
+    <div class="main-content">
+        <nav class="navbar user-info-navbar" role="navigation">
+            <!-- Left links for user info navbar -->
+            <ul class="user-info-menu left-links list-inline list-unstyled">
+                <li class="hidden-sm hidden-xs"><a href="#"
+                                                   data-toggle="sidebar"> <i class="fa-bars"></i>
+                </a></li>
+            </ul>
+        </nav>
+
+        <div id="search" class="s-search">
+            <div id="search-list" class="hide-type-list">
+                <div class="search-group group-a">
+                    <ul class="search-type">
+                        <li><input hidden type="radio" name="type" id="type-zhannei"
+                                   value="/search/" data-placeholder="站内搜索 - 简拼/全拼/中文/字母"></li>
+                    </ul>
+                </div>
+                <div class="search-group group-b">
+                    <span class="type-text">搜索</span>
+                    <ul class="search-type">
+                    </ul>
+                </div>
+            </div>
+            <form action="?s=" method="get" target="_blank" id="super-search-fm">
+                <input type="text" id="search-text" placeholder="输入关键字搜索"
+                       style="outline: 0">
+                <button type="submit">
+                    <i class="fa fa-search "></i>
+                </button>
+            </form>
+            <div class="set-check hidden-xs">
+                <input type="checkbox" id="set-search-blank" class="bubble-3"
+                       autocomplete="off">
+            </div>
+        </div>
+        <script type="text/javascript">eval(function (e, t, a, c, i, n) {
+            if (i = function (e) {
+                return (e < t ? "" : i(parseInt(e / t))) + (35 < (e %= t) ? String.fromCharCode(e + 29) : e.toString(36))
+            }, !"".replace(/^/, String)) {
+                for (; a--;) n[i(a)] = c[a] || i(a);
+                c = [function (e) {
+                    return n[e]
+                }], i = function () {
+                    return "\\w+"
+                }, a = 1
+            }
+            for (; a--;) c[a] && (e = e.replace(new RegExp("\\b" + i(a) + "\\b", "g"), c[a]));
+            return e
+        }('!2(){2 g(){h(),i(),j(),k()}2 h(){d.9=s()}2 i(){z a=4.8(\'A[B="7"][5="\'+p()+\'"]\');a&&(a.9=!0,l(a))}2 j(){v(u())}2 k(){w(t())}2 l(a){P(z b=0;b<e.O;b++)e[b].I.1c("s-M");a.F.F.F.I.V("s-M")}2 m(a,b){E.H.S("L"+a,b)}2 n(a){6 E.H.Y("L"+a)}2 o(a){f=a.3,v(u()),w(a.3.5),m("7",a.3.5),c.K(),l(a.3)}2 p(){z b=n("7");6 b||a[0].5}2 q(a){m("J",a.3.9?1:-1),x(a.3.9)}2 r(a){6 a.11(),""==c.5?(c.K(),!1):(w(t()+c.5),x(s()),s()?E.U(b.G,+T X):13.Z=b.G,10 0)}2 s(){z a=n("J");6 a?1==a:!0}2 t(){6 4.8(\'A[B="7"]:9\').5}2 u(){6 4.8(\'A[B="7"]:9\').W("14-N")}2 v(a){c.1e("N",a)}2 w(a){b.G=a}2 x(a){a?b.3="1a":b.16("3")}z y,a=4.R(\'A[B="7"]\'),b=4.8("#18-C-19"),c=4.8("#C-12"),d=4.8("#17-C-15"),e=4.R(".C-1b"),f=a[0];P(g(),y=0;y<a.O;y++)a[y].D("Q",o);d.D("Q",q),b.D("1d",r)}();', 62, 77, "||function|target|document|value|return|type|querySelector|checked||||||||||||||||||||||||||var|input|name|search|addEventListener|window|parentNode|action|localStorage|classList|newWindow|focus|superSearch|current|placeholder|length|for|change|querySelectorAll|setItem|new|open|add|getAttribute|Date|getItem|href|void|preventDefault|text|location|data|blank|removeAttribute|set|super|fm|_blank|group|remove|submit|setAttribute".split("|"), 0, {}));</script>
+
+
+        @include("/common/_content.html"){}
+
+        <!-- Main Footer -->
+        <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
+        <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
+        <!-- Or class "fixed" to  always fix the footer to the end of page -->
+        <footer class="main-footer sticky footer-type-1">
+            <div class="footer-inner">
+                <!-- Add your copyright text here -->
+                <div class="footer-text">
+                    &copy; 2023 <a href="/"><strong>深圳空管</strong></a> powered by <strong>刘伟健</strong></a>
+                </div>
+                <div class="go-up">
+                    <a href="#" rel="go-top"> <i class="fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        innerSearch();
+        $("img").lazyload({threshold: 180});
+    });
+    $(document).ready(
+        function () {
+            $(document).on('click', '.has-sub', function () {
+                var _this = $(this)
+                if (!$(this).hasClass('expanded')) {
+                    setTimeout(function () {
+                        _this.find('ul').attr("style", "")
+                    }, 300);
+
+                } else {
+                    $('.has-sub ul').each(function (id, ele) {
+                        var _that = $(this)
+                        if (_this.find('ul')[0] != ele) {
+                            setTimeout(function () {
+                                _that.attr("style", "")
+                            }, 300);
+                        }
+                    })
+                }
+            })
+            $('.user-info-menu .hidden-sm').click(function () {
+                if ($('.sidebar-menu').hasClass('collapsed')) {
+                    $('.has-sub.expanded > ul').attr("style", "")
+                } else {
+                    $('.has-sub.expanded > ul').show()
+                }
+            })
+            $("#main-menu li ul li").click(function () {
+                $(this).siblings('li').removeClass('active'); // 删除其他兄弟元素的样式
+                $(this).addClass('active'); // 添加当前元素的样式
+            });
+            $("a.smooth").click(
+                function (ev) {
+                    ev.preventDefault();
+
+                    public_vars.$mainMenu.add(
+                        public_vars.$sidebarProfile)
+                        .toggleClass('mobile-is-visible');
+                    ps_destroy();
+                    $("html, body").animate(
+                        {
+                            scrollTop: $($(this).attr("href"))
+                                .offset().top - 30
+                        }, {
+                            duration: 500,
+                            easing: "swing"
+                        });
+                });
+            return false;
+        });
 
     var href = "";
     var pos = 0;
-    $("a.smooth").click(function(e) {
-        $("#main-menu li").each(function() {
+    $("a.smooth").click(function (e) {
+        $("#main-menu li").each(function () {
             $(this).removeClass("active");
         });
         $(this).parent("li").addClass("active");
@@ -108,7 +168,71 @@
         href = $(this).attr("href");
         pos = $(href).position().top - 30;
     });
-    </script>
+
+    /*前端站内搜索*/
+    function innerSearch() {
+        $("#search-text").focus();
+        $("#search-text").on("input", function () {
+            let inputVal = $(this).val().toUpperCase();
+            $(".col-sm-3").each((function () {
+                let hidden = true;
+                let item = $(this);
+                if (item.find("strong").text().toUpperCase().indexOf(inputVal) != -1
+                    || pinyin.getCamelChars(item.find("strong").text()).indexOf(inputVal) != -1
+                    || pinyin.getFullChars(item.find("strong").text()).toUpperCase().indexOf(inputVal) != -1) {
+                    hidden = false;
+                }
+                if (item.find(".overflowClip_2").text().toUpperCase().indexOf(inputVal) != -1
+                    || pinyin.getCamelChars(item.find(".overflowClip_2").text()).indexOf(inputVal) != -1
+                    || pinyin.getCamelChars(item.find(".overflowClip_2").text()).toUpperCase().indexOf(inputVal) != -1) {
+                    hidden = false;
+                }
+                if (hidden) {
+                    item.attr("hidden", "hidden");
+                } else {
+                    item.removeAttr("hidden");
+                }
+            }))
+            $(".row").each(function () {
+                let row = $(this);
+                let type = row.prev();
+                // 该分类下所有网址都隐藏，该分类也隐藏
+                if (row.children().not("[hidden='hidden']").length == 0) {
+                    type.attr("hidden", "hidden");
+                } else {
+                    type.removeAttr("hidden");
+                }
+            })
+        })
+    }
+
+    function clickSiteItem(url) {
+        // 清空并重新聚焦到输入框
+        $('#search-text').val("");
+        $(".col-sm-3").each((function () {
+            let item = $(this);
+            item.removeAttr("hidden");
+        }))
+        $(".row").each(function () {
+            let row = $(this);
+            let type = row.prev();
+            type.removeAttr("hidden");
+        })
+        $('#search-text').focus();
+        // 打开新页面
+        window.open(url, '_blank');
+    }
+
+    // 按键监听:任意可见字符搜索
+    document.addEventListener("keydown", function (event) {
+        let key = event.key;
+        if (key.length === 1) {
+            if (!$('#search-text').is(":focus")) {
+                $('#search-text').focus();
+            }
+        }
+    })
+</script>
 
 </body>
 

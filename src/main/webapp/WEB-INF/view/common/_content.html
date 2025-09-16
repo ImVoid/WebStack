@@ -1,25 +1,58 @@
 @for(categorySite in categorySiteList){
-    @if(isNotEmpty(categorySite.sites)){
-    <h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="${categorySite.title}"></i>${categorySite.title}</h4>
-        <div class="row">
-            @for(site in categorySite.sites){
-            <div class="col-sm-3">
-                <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('${site.url}', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${site.url}">
-                    <div class="xe-comment-entry">
-                        <a class="xe-user-img">
-                            <img src="/kaptcha/${site.thumb}" class="img-circle" width="40">
-                        </a>
-                        <div class="xe-comment">
-                            <a href="#" class="xe-user-name overflowClip_1">
-                                <strong>${site.title}</strong>
-                            </a>
-                            <p class="overflowClip_2">${site.description}</p>
-                        </div>
-                    </div>
+@if(isNotEmpty(categorySite.sites)){
+<h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="${categorySite.title}"></i>${categorySite.title}
+</h4>
+<div class="row">
+    @for(site in categorySite.sites){
+
+    @if(site.status == 1){
+    <div class="col-sm-3">
+        <div class="xe-widget xe-conversations box2 label-info" onclick="clickSiteItem('${site.url}')"
+             data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${site.url}">
+    @}
+    @if(site.status == 0){
+    <div class="col-sm-3">
+        <div class="xe-widget xe-conversations box2 label-info badSite" onclick="clickSiteItem('${site.url}')"
+             data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${site.url}">
+            @}
+
+
+            <div class="xe-comment-entry">
+                <a class="xe-user-img">
+                    @if(isNotEmpty(site.thumb)){
+                    <img src="/kaptcha/${site.thumb}" class="img-circle" width="40">
+                    @}
+                    @if(!isNotEmpty(site.thumb)){
+                    <img src="${ctxPath}/static/img/github.png" class="img-circle" width="40">
+                    @}
+                </a>
+                <div class="xe-comment">
+                    <a href="#" class="xe-user-name overflowClip_1">
+                        @if(site.status == 1){
+                            <strong>${site.title}</strong>
+                        @}
+                        @if(site.status == 0){
+                        <strong class="badFont">${site.title}</strong>
+                        @}
+                    </a>
+                    @if(site.status == 1){
+                    <p class="overflowClip_2">${site.description}</p>
+                    @}
+                    @if(site.status == 0){
+                    <p class="overflowClip_2 badFont">${site.description}</p>
+                    @}
                 </div>
             </div>
-            @}
         </div>
-    <br>
+    </div>
     @}
+</div>
+<br>
+@}
+@}
+@if(!isNotEmpty(categorySiteList)){
+<div style=" margin-top: 10%;margin-left: 35%;">
+    <h4 class="text-gray">暂未收入您输入的网站。</h4>
+    <h4 style="margin-top: 20px;" class="text-gray">如有需要可以联系管理员</h4>
+</div>
 @}

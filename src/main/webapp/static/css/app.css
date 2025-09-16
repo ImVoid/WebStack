@@ -15470,7 +15470,6 @@ button.toast-close-button {
 
 .xe-widget.xe-conversations {
     position: relative;
-    background: #fff;
     margin-bottom: 0px;
     padding: 15px
 }
@@ -25480,4 +25479,12 @@ button.toast-close-button {
 .submit-tag{
     margin-top: 50px;
 
+}
+
+.badSite {
+    background: #f44336;
+}
+
+.badFont {
+    color: #FFFFFF;
 }

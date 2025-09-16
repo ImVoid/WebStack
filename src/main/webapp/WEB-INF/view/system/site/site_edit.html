@@ -8,7 +8,8 @@
             <div class="row">
 
                 <div class="col-sm-12 b-r">
-                    <#input id="categoryTitle" name="分类" readonly="readonly" hidden="categoryId" value="${site.categoryTitle}"
+                    <#input id="categoryTitle" name="分类" readonly="readonly" value="${site.categoryTitle}"
+                    hidden="categoryId" hiddenValue="${site.categoryId}"
                     clickFun="SiteDlg.showCategorySelectTree(); return false;"
                     style="background-color: #ffffff !important;" underline="true"/>
 
@@ -17,6 +18,8 @@
                     <#image id="thumb" name="图标" underline="true" avatarImg="${site.thumb}"/>
 
                     <#input id="description" name="描述" underline="true" value="${site.description}"/>
+
+                    <#input id="regex" name="正则" underline="true" value="${site.regex}"/>
 
                     <#input id="url" name="地址" underline="true" value="${site.url}"/>
                 </div>

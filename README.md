@@ -1,57 +1,46 @@
-# WebStack-Guns
+### 使用 docker run -e 方式设置环境变量
+支持设置的环境变量有
 
-一个开源的网址导航网站项目，具备完整的前后台，您可以拿来制作自己的网址导航。
+环境变量名称|环境变量说明|默认值
+--|--|--
+IMAGE_UPLOAD_PATH|图片上传路径(容器中)|/root/webstack/file
+DB_HOST|数据库主机|127.0.0.1
+DB_PORT|数据库端口|3306
+DB_DATABASE|数据库名称|webstack
+DB_USERNAME|数据库用户名|root
+DB_PASSWORD|数据库密码|root
 
-![首页](screen/1.png)
-
-
-
-## 运行
-
-克隆代码：
-
-```shell
-git clone https://github.com/jsnjfz/WebStack-Guns.git
+示例：
+```
+docker run -itd \
+    -e DB_DATABASE=webstack \
+    -e DB_HOST=192.168.211.28 \
+    --name webstack \
+    -p 8000:8000 \
+    webstack
 ```
 
-导入IDE，建议用IDEA打开项目目录，待maven下载完jar包
+### 使用 docker run -v 方式映射配置文件
 
+首先在宿主机创建并修改配置相关文件 /path/to/config/application.yml , 示例文件[application-example.yml](./src/main/resources/application-example.yml)
 
-编辑配置：
-
+主要修改：
 ```
-application.yml
-```
-```
-上传文件路径，注意windows环境和linux环境：
-file-upload-path
-如需显示初始网站图标请把Webstack-Guns/src/main/webapp/static/tmp下的图片复制到上传文件路径
+guns.file-upload-path
+spring.datasource.url
+spring.datasource.username
+spring.datasource.password
 ```
 
+运行容器示例：
 ```
-...
-数据库连接，用户名密码：
-url
-username
-password
-...
+docker run -itd \
+    -v /path/to/config:/root/webstack/config \
+    -v /path/to/file=/root/webstack/file \
+    --name webstack \
+    -p 8000:8000 \
+    webstack
 ```
-
-新建数据库guns(utf8mb4)，导入数据：
-
-```shell
-guns.sql
-```
-
-maven打包或者IDE启动服务：
-
-```shell
-$ java -jar Webstack-Guns-1.0.jar
-```
-
-启动完成：http://127.0.0.1:8000
-
-
 
 ## 使用
 
@@ -61,26 +50,7 @@ $ java -jar Webstack-Guns-1.0.jar
 
 默认密码：111111
 
-在线demo: http://162.14.77.103:8000/
-
-![主页](screen/2.png)
-
-![分类](screen/3.png)
-
-![网站](screen/4.png)
-
-
-
-## 感谢
-
-前端设计：[**WebStackPage**](https://github.com/WebStackPage/WebStackPage.github.io)
-
-后台框架：[**Guns**](https://github.com/stylefeng/Guns)
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**SpringBoot**
-
-
-
-## License
-
-MIT
+## 如何在IDEA进行maven docker 打包推送
+1. maven package打包
+2. maven docker:build 此时新镜像会推送到服务器
+3. 重新运行镜像
