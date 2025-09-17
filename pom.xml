@@ -15,7 +15,7 @@
 	<version>1.0</version>
 
 	<name>webstack</name>
-	<description>深圳空管网址导航服务</description>
+	<description>网址导航服务</description>
 
 	<packaging>jar</packaging>
 
