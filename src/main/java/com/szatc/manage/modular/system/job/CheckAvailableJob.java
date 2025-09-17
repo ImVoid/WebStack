@@ -29,7 +29,7 @@ public class CheckAvailableJob {
     @Autowired
     private SiteServiceImpl siteService;
 
-    @Scheduled(cron = "0 0/5 * * * ?")
+//    @Scheduled(cron = "0 0/5 * * * ?")
     public void check() {
         List<Category> categorySiteList = categoryService.getCatogrySite(null);
 
